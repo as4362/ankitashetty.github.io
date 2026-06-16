@@ -1,0 +1,301 @@
+
+<style>
+* { box-sizing: border-box; }
+body { margin: 0; }
+.wrap { padding: 1rem 0; font-size: 13px; }
+.wave-label { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.08em; color: var(--color-text-secondary); margin: 20px 0 8px; display: flex; align-items: center; gap: 10px; }
+.wave-label::after { content: ''; flex: 1; height: 0.5px; background: var(--color-border-tertiary); }
+.wave-sub { font-size: 11px; color: var(--color-text-secondary); margin: -4px 0 8px; font-style: italic; text-align: center; }
+.row { display: flex; gap: 10px; margin-bottom: 4px; justify-content: center; flex-wrap: wrap; }
+.box { flex: 1; min-width: 140px; border-radius: 8px; padding: 10px 12px; cursor: pointer; transition: opacity 0.15s, transform 0.15s; border: 1.5px solid transparent; }
+.box:hover { opacity: 0.85; transform: translateY(-1px); }
+.box.active { border-color: currentColor; }
+.box-title { font-size: 13px; font-weight: 500; margin-bottom: 2px; }
+.box-sub { font-size: 11px; opacity: 0.75; line-height: 1.4; }
+.arrow-down { text-align: center; color: var(--color-text-secondary); font-size: 16px; margin: 2px 0; opacity: 0.35; }
+
+.detail-panel { display: none; border-radius: 8px; padding: 14px 16px; margin: 8px 0; border: 0.5px solid var(--color-border-secondary); background: var(--color-background-secondary); }
+.detail-panel.visible { display: block; }
+.detail-title { font-size: 14px; font-weight: 500; color: var(--color-text-primary); margin-bottom: 8px; }
+.detail-row { display: flex; gap: 8px; margin-bottom: 5px; font-size: 12px; line-height: 1.5; }
+.detail-label { color: var(--color-text-secondary); min-width: 80px; flex-shrink: 0; }
+.detail-value { color: var(--color-text-primary); }
+.close-btn { float: right; font-size: 11px; color: var(--color-text-secondary); cursor: pointer; padding: 2px 6px; border-radius: 4px; background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); margin-top: -2px; }
+.close-btn:hover { background: var(--color-border-tertiary); }
+
+.c-start { background: #E1F5EE; } .c-start .box-title { color: #085041; } .c-start .box-sub { color: #0F6E56; }
+.c-amber { background: #FAEEDA; } .c-amber .box-title { color: #633806; } .c-amber .box-sub { color: #854F0B; }
+.c-purple { background: #EEEDFE; } .c-purple .box-title { color: #3C3489; } .c-purple .box-sub { color: #534AB7; }
+.c-coral { background: #FAECE7; } .c-coral .box-title { color: #712B13; } .c-coral .box-sub { color: #993C1D; }
+.c-blue { background: #E6F1FB; } .c-blue .box-title { color: #0C447C; } .c-blue .box-sub { color: #185FA5; }
+.c-pink { background: #FBEAF0; } .c-pink .box-title { color: #72243E; } .c-pink .box-sub { color: #993556; }
+.c-gray { background: var(--color-background-secondary); border: 0.5px solid var(--color-border-tertiary); } .c-gray .box-title { color: var(--color-text-primary); } .c-gray .box-sub { color: var(--color-text-secondary); }
+
+@media (prefers-color-scheme: dark) {
+  .c-start { background: #04342C; } .c-start .box-title { color: #9FE1CB; } .c-start .box-sub { color: #5DCAA5; }
+  .c-amber { background: #412402; } .c-amber .box-title { color: #FAC775; } .c-amber .box-sub { color: #EF9F27; }
+  .c-purple { background: #26215C; } .c-purple .box-title { color: #CECBF6; } .c-purple .box-sub { color: #AFA9EC; }
+  .c-coral { background: #4A1B0C; } .c-coral .box-title { color: #F5C4B3; } .c-coral .box-sub { color: #F0997B; }
+  .c-blue { background: #042C53; } .c-blue .box-title { color: #B5D4F4; } .c-blue .box-sub { color: #85B7EB; }
+  .c-pink { background: #4B1528; } .c-pink .box-title { color: #F4C0D1; } .c-pink .box-sub { color: #ED93B1; }
+}
+</style>
+
+<div class="wrap">
+
+  <div class="row">
+    <div class="box c-start" style="max-width:340px" onclick="toggle('d-start', this)">
+      <div class="box-title">Olivo Santo</div>
+      <div class="box-sub">Private estate · Zapallar, Chile</div>
+    </div>
+  </div>
+  <div class="detail-panel" id="d-start">
+    <span class="close-btn" onclick="close('d-start')">close</span>
+    <div class="detail-title">Olivo Santo</div>
+    <div class="detail-row"><span class="detail-label">Location</span><span class="detail-value">Hilltop overlooking Pacific Ocean, Zapallar, Chile · 90 min from Santiago</span></div>
+    <div class="detail-row"><span class="detail-label">Scale</span><span class="detail-value">8 hectares · 12,000 sq ft main house + guest house · sleeps 14</span></div>
+    <div class="detail-row"><span class="detail-label">Key assets</span><span class="detail-value">Producing olive plantation (Arbequina, Picual, Frantoio, Leccino) · estate oil · polo field · tennis · pool · temazcal · organic orchard · helicopter landing</span></div>
+    <div class="detail-row"><span class="detail-label">Model</span><span class="detail-value">Inhouse managed · not listed publicly · direct bookings only</span></div>
+    <div class="detail-row"><span class="detail-label">Contact</span><span class="detail-value">reservations@olivosanto.com</span></div>
+  </div>
+
+  <div class="arrow-down">↓</div>
+
+  <div class="wave-label">First move</div>
+  <div class="wave-sub">Before anything else. This conversation sharpens every pitch that follows.</div>
+
+  <div class="row">
+    <div class="box c-amber" onclick="toggle('d-jordan', this)">
+      <div class="box-title">Jordan Harvey</div>
+      <div class="box-sub">Knowmad Adventures · Chile market intelligence</div>
+    </div>
+  </div>
+  <div class="detail-panel" id="d-jordan">
+    <span class="close-btn" onclick="close('d-jordan')">close</span>
+    <div class="detail-title">Jordan Harvey — Knowmad Adventures</div>
+    <div class="detail-row"><span class="detail-label">Role</span><span class="detail-value">Co-Founder & CEO, Knowmad Adventures — US-based luxury travel company specializing in South America</span></div>
+    <div class="detail-row"><span class="detail-label">Recognition</span><span class="detail-value">CNT Top Travel Specialist + T&L A-List for Chile, 13 consecutive years</span></div>
+    <div class="detail-row"><span class="detail-label">Purpose</span><span class="detail-value">Not a commission channel. A 20-minute call for Chile market intelligence, positioning advice, and access to his editorial circle at CNT and T&L</span></div>
+    <div class="detail-row"><span class="detail-label">Contact</span><span class="detail-value">jordan@knowmadadventures.com · +1 877-616-8747</span></div>
+    <div class="detail-row"><span class="detail-label">Approach</span><span class="detail-value">Email already drafted. Francisco to send directly. Ask for a call — not a formal arrangement.</span></div>
+  </div>
+
+  <div class="arrow-down">↓</div>
+
+  <div class="wave-label">Wave 1 — editorial</div>
+  <div class="wave-sub">All three run in parallel · independent pitches · different angles</div>
+
+  <div class="row">
+    <div class="box c-purple" onclick="toggle('d-cnt', this)">
+      <div class="box-title">Condé Nast Traveler</div>
+      <div class="box-sub">Shannon McMahon · Lale Arikoglu</div>
+    </div>
+    <div class="box c-coral" onclick="toggle('d-virtuoso', this)">
+      <div class="box-title">Virtuoso</div>
+      <div class="box-sub">Preferred Partner · invitation-based</div>
+    </div>
+    <div class="box c-purple" onclick="toggle('d-ad', this)">
+      <div class="box-title">Architectural Digest</div>
+      <div class="box-sub">Amy Astley · Alison Levasseur</div>
+    </div>
+  </div>
+
+  <div class="detail-panel" id="d-cnt">
+    <span class="close-btn" onclick="close('d-cnt')">close</span>
+    <div class="detail-title">Condé Nast Traveler</div>
+    <div class="detail-row"><span class="detail-label">What it is</span><span class="detail-value">Leading US luxury travel publication · 700,000+ affluent readers · editorial only, cannot pay for placement</span></div>
+    <div class="detail-row"><span class="detail-label">Contact 1</span><span class="detail-value">Shannon McMahon, Destinations Editor · shannon_mcmahon@condenast.com · Angle: Chile's undiscovered luxury coast as a destination story</span></div>
+    <div class="detail-row"><span class="detail-label">Contact 2</span><span class="detail-value">Lale Arikoglu, Articles Director · lale_arikoglu@condenast.com · Angle: the working olive estate as a new model of experiential luxury travel</span></div>
+    <div class="detail-row"><span class="detail-label">Why it matters</span><span class="detail-value">A CNT mention is the single most powerful credibility signal for every other channel on this list — advisors, concierges, and private banks all reference it</span></div>
+  </div>
+
+  <div class="detail-panel" id="d-virtuoso">
+    <span class="close-btn" onclick="close('d-virtuoso')">close</span>
+    <div class="detail-title">Virtuoso Preferred Partner Program</div>
+    <div class="detail-row"><span class="detail-label">What it is</span><span class="detail-value">World's leading luxury travel network · 20,000+ advisors · $35B in annual sales · by invitation only</span></div>
+    <div class="detail-row"><span class="detail-label">Process</span><span class="detail-value">Express interest at virtuoso.com · if property fits, they send formal application · reviewed against advisor references · Jordan Harvey's endorsement increases likelihood of acceptance</span></div>
+    <div class="detail-row"><span class="detail-label">What's needed</span><span class="detail-value">Rate card · minimum stay · 10–15% advisor commission built into rack rate · dedicated contact who responds within hours · minimum $100 guest amenity per stay</span></div>
+    <div class="detail-row"><span class="detail-label">Why it unlocks Wave 2</span><span class="detail-value">Valerie Wilson Travel advisors are Virtuoso members. Amex Centurion concierges use Virtuoso to source properties. One enrollment opens both channels.</span></div>
+  </div>
+
+  <div class="detail-panel" id="d-ad">
+    <span class="close-btn" onclick="close('d-ad')">close</span>
+    <div class="detail-title">Architectural Digest</div>
+    <div class="detail-row"><span class="detail-label">What it is</span><span class="detail-value">World's leading architecture and design publication · deeply affluent US readership · regularly features privately owned estates globally</span></div>
+    <div class="detail-row"><span class="detail-label">Contact 1</span><span class="detail-value">Amy Astley, Editor in Chief · amy_astley@condenast.com · Short, confident pitch · three sentences on the property, one ask</span></div>
+    <div class="detail-row"><span class="detail-label">Contact 2</span><span class="detail-value">Alison Levasseur, Travel Editor · alison_levasseur@condenast.com · Angle: Olivo Santo as an architectural subject — stone construction, reclaimed timber, hilltop setting, 8 hectares of designed landscape</span></div>
+    <div class="detail-row"><span class="detail-label">Why it matters</span><span class="detail-value">AD readers are exactly the audience that rents properties like this. The pitch is the property itself as architecture — not as a rental opportunity.</span></div>
+  </div>
+
+  <div class="arrow-down">↓</div>
+
+  <div class="wave-label">Wave 2 — private banking + Johansens</div>
+  <div class="wave-sub">Run all three in parallel · Virtuoso enrollment from Wave 1 unlocks the first two</div>
+
+  <div class="row">
+    <div class="box c-blue" onclick="toggle('d-vwt', this)">
+      <div class="box-title">Valerie Wilson Travel</div>
+      <div class="box-sub">JP Morgan Private Bank · via Virtuoso</div>
+    </div>
+    <div class="box c-blue" onclick="toggle('d-amex', this)">
+      <div class="box-title">Amex Centurion</div>
+      <div class="box-sub">Concierge · via Virtuoso + editorial</div>
+    </div>
+    <div class="box c-purple" onclick="toggle('d-johansens', this)">
+      <div class="box-title">Condé Nast Johansens</div>
+      <div class="box-sub">Apply to join the collection</div>
+    </div>
+  </div>
+
+  <div class="detail-panel" id="d-vwt">
+    <span class="close-btn" onclick="close('d-vwt')">close</span>
+    <div class="detail-title">Valerie Wilson Travel — JP Morgan Private Bank</div>
+    <div class="detail-row"><span class="detail-label">What it is</span><span class="detail-value">Acquired by JP Morgan Chase · serves clients with $10M+ in investable assets · JP Morgan works with more than half of all US billionaires</span></div>
+    <div class="detail-row"><span class="detail-label">How to enter</span><span class="detail-value">VWT advisors are Virtuoso members — Virtuoso enrollment is the primary entry point. Also: direct outreach to partnerships team at valeriewilsontravel.com</span></div>
+    <div class="detail-row"><span class="detail-label">Warm intro</span><span class="detail-value">Francisco's son is a JP Morgan Private Bank client — a direct personal connection into the exact client base VWT serves. This is the most powerful entry route.</span></div>
+    <div class="detail-row"><span class="detail-label">Contact</span><span class="detail-value">valeriewilsontravel.com — ask for preferred supplier partnerships team</span></div>
+  </div>
+
+  <div class="detail-panel" id="d-amex">
+    <span class="close-btn" onclick="close('d-amex')">close</span>
+    <div class="detail-title">Amex Centurion Concierge</div>
+    <div class="detail-row"><span class="detail-label">What it is</span><span class="detail-value">Only 17,000 cards globally · requires $250K+ annual spend + $10K initiation fee · each cardholder has a dedicated personal concierge available 24/7</span></div>
+    <div class="detail-row"><span class="detail-label">How it works</span><span class="detail-value">No fixed supplier list — concierges source properties dynamically when members request. They search Virtuoso, editorial coverage, and known networks.</span></div>
+    <div class="detail-row"><span class="detail-label">How to get known</span><span class="detail-value">Virtuoso enrollment + CNT/AD editorial coverage makes Olivo Santo findable when a concierge searches for private estates in Chile</span></div>
+    <div class="detail-row"><span class="detail-label">Formal step</span><span class="detail-value">Register at americanexpress.com/en-us/travel/supplier-partners to be in their system</span></div>
+  </div>
+
+  <div class="detail-panel" id="d-johansens">
+    <span class="close-btn" onclick="close('d-johansens')">close</span>
+    <div class="detail-title">Condé Nast Johansens</div>
+    <div class="detail-row"><span class="detail-label">What it is</span><span class="detail-value">Separate Condé Nast brand from CNT · curates luxury hotels, villas, and exclusive-use estates globally · carries the Condé Nast name as a quality signal</span></div>
+    <div class="detail-row"><span class="detail-label">Key difference</span><span class="detail-value">Unlike CNT which is editorial-only, Johansens actively invites property applications — it is a curated collection you can apply to join</span></div>
+    <div class="detail-row"><span class="detail-label">Process</span><span class="detail-value">Complete the Join Our Collection form at condenastjohansens.com · their Local Experts inspect properties annually before inclusion</span></div>
+    <div class="detail-row"><span class="detail-label">Contact</span><span class="detail-value">info@johansens.com</span></div>
+  </div>
+
+  <div class="arrow-down">↓</div>
+
+  <div class="wave-label">Wave 3 — membership and concierge networks</div>
+  <div class="wave-sub">Run all three in parallel · each is an independent outreach</div>
+
+  <div class="row">
+    <div class="box c-pink" onclick="toggle('d-prior', this)">
+      <div class="box-title">PRIOR</div>
+      <div class="box-sub">Bespoke luxury travel advisory</div>
+    </div>
+    <div class="box c-pink" onclick="toggle('d-quint', this)">
+      <div class="box-title">Quintessentially</div>
+      <div class="box-sub">Global luxury concierge · 60+ offices</div>
+    </div>
+    <div class="box c-pink" onclick="toggle('d-inspirato', this)">
+      <div class="box-title">Inspirato</div>
+      <div class="box-sub">Luxury private travel club · expanding</div>
+    </div>
+  </div>
+
+  <div class="detail-panel" id="d-prior">
+    <span class="close-btn" onclick="close('d-prior')">close</span>
+    <div class="detail-title">PRIOR</div>
+    <div class="detail-row"><span class="detail-label">What it is</span><span class="detail-value">Bespoke luxury travel advisory membership · $2,750/year · their team of editors and designers plans custom trips at properties worldwide</span></div>
+    <div class="detail-row"><span class="detail-label">How it works</span><span class="detail-value">Not a fixed property portfolio. Their editorial team recommends properties dynamically when members request something extraordinary in a destination.</span></div>
+    <div class="detail-row"><span class="detail-label">Approach</span><span class="detail-value">Introduce Olivo Santo to their editorial team. When a member asks for something private in South America, PRIOR's team will recommend it.</span></div>
+    <div class="detail-row"><span class="detail-label">What they need</span><span class="detail-value">olivosanto.com live · Virtuoso status · CNT or AD coverage · dedicated contact who responds immediately</span></div>
+    <div class="detail-row"><span class="detail-label">Contact</span><span class="detail-value">priorworld.com — editorial or partnerships inquiry</span></div>
+  </div>
+
+  <div class="detail-panel" id="d-quint">
+    <span class="close-btn" onclick="close('d-quint')">close</span>
+    <div class="detail-title">Quintessentially</div>
+    <div class="detail-row"><span class="detail-label">What it is</span><span class="detail-value">World's leading private concierge service · 60+ offices · 1,500+ specialists · recognized as the best luxury concierge service in 2025</span></div>
+    <div class="detail-row"><span class="detail-label">Why relevant</span><span class="detail-value">Quintessentially Travel curates bespoke itineraries · Quintessentially Estates handles private property rentals · both divisions are directly relevant for Olivo Santo</span></div>
+    <div class="detail-row"><span class="detail-label">Global reach</span><span class="detail-value">Particularly strong in UK and Middle East — opens international markets beyond the US strategy</span></div>
+    <div class="detail-row"><span class="detail-label">Approach</span><span class="detail-value">Direct outreach to their partnerships team · they actively build relationships with curated properties</span></div>
+    <div class="detail-row"><span class="detail-label">Contact</span><span class="detail-value">info@quintessentially.com</span></div>
+  </div>
+
+  <div class="detail-panel" id="d-inspirato">
+    <span class="close-btn" onclick="close('d-inspirato')">close</span>
+    <div class="detail-title">Inspirato</div>
+    <div class="detail-row"><span class="detail-label">What it is</span><span class="detail-value">Luxury private travel club · Nasdaq listed · Pass membership $40,000/year · limited to 2,500 members · properties not publicly searchable</span></div>
+    <div class="detail-row"><span class="detail-label">Opportunity</span><span class="detail-value">Inspirato is actively seeking new luxury properties in 2025 and expanding to new destinations including South America — Olivo Santo would be one of very few Chile properties</span></div>
+    <div class="detail-row"><span class="detail-label">Consideration</span><span class="detail-value">Inspirato manages the guest relationship on their platform — decide in advance whether this is compatible with Olivo Santo's direct booking preference</span></div>
+    <div class="detail-row"><span class="detail-label">Contact</span><span class="detail-value">inspiratorealestate.com · partnerships@inspirato.com</span></div>
+  </div>
+
+  <div class="arrow-down">↓</div>
+
+  <div class="wave-label">Wave 4 — relationship driven · long term</div>
+  <div class="wave-sub">Warm introduction required · no cold email will work · build toward these through Jordan Harvey and editorial coverage</div>
+
+  <div class="row">
+    <div class="box c-gray" onclick="toggle('d-fox', this)">
+      <div class="box-title">Family Office Exchange</div>
+      <div class="box-sub">$1B+ average assets · highest-value bookings</div>
+    </div>
+    <div class="box c-gray" onclick="toggle('d-citi', this)">
+      <div class="box-title">Citi Private Bank</div>
+      <div class="box-sub">Lifestyle Advisory · warm intro required</div>
+    </div>
+  </div>
+
+  <div class="detail-panel" id="d-fox">
+    <span class="close-btn" onclick="close('d-fox')">close</span>
+    <div class="detail-title">Family Office Exchange — FOX</div>
+    <div class="detail-row"><span class="detail-label">What it is</span><span class="detail-value">Largest US family office network · members manage average $1B+ in assets · FOX publishes lifestyle and travel recommendations to member families</span></div>
+    <div class="detail-row"><span class="detail-label">Why valuable</span><span class="detail-value">Multi-generational family offices book entire estates, stay for extended periods, and return annually — the highest-value client profile for Olivo Santo</span></div>
+    <div class="detail-row"><span class="detail-label">How to enter</span><span class="detail-value">Initial inquiry to info@familyoffice.com · slow-build relationship · worth starting early · warm introduction significantly accelerates</span></div>
+    <div class="detail-row"><span class="detail-label">Contact</span><span class="detail-value">info@familyoffice.com · familyoffice.com</span></div>
+  </div>
+
+  <div class="detail-panel" id="d-citi">
+    <span class="close-btn" onclick="close('d-citi')">close</span>
+    <div class="detail-title">Citi Private Bank — Lifestyle Advisory</div>
+    <div class="detail-row"><span class="detail-label">What it is</span><span class="detail-value">Lifestyle advisory service for ultra-high-net-worth Citi Private Bank clients · recommends curated travel experiences including private estate rentals</span></div>
+    <div class="detail-row"><span class="detail-label">How to enter</span><span class="detail-value">No public supplier program · requires warm introduction through existing network · becomes realistic as Jordan Harvey relationship and editorial coverage develop</span></div>
+    <div class="detail-row"><span class="detail-label">Timeline</span><span class="detail-value">Medium to long term · not a Wave 1 or 2 action · build the editorial and advisor foundation first</span></div>
+    <div class="detail-row"><span class="detail-label">Contact</span><span class="detail-value">privatebank.citibank.com</span></div>
+  </div>
+
+  <div class="arrow-down">↓</div>
+
+  <div class="row">
+    <div class="box c-start" style="max-width:360px; text-align:center;" onclick="toggle('d-outcome', this)">
+      <div class="box-title">First direct inquiry received</div>
+      <div class="box-sub">reservations@olivosanto.com</div>
+    </div>
+  </div>
+  <div class="detail-panel" id="d-outcome">
+    <span class="close-btn" onclick="close('d-outcome')">close</span>
+    <div class="detail-title">What success looks like at 90 days</div>
+    <div class="detail-row"><span class="detail-label">Editorial</span><span class="detail-value">One conversation started with CNT or AD</span></div>
+    <div class="detail-row"><span class="detail-label">Strategic</span><span class="detail-value">Jordan Harvey call completed · relationship established</span></div>
+    <div class="detail-row"><span class="detail-label">Virtuoso</span><span class="detail-value">Preferred partner application submitted</span></div>
+    <div class="detail-row"><span class="detail-label">Banking</span><span class="detail-value">Amex Centurion enrollment submitted · VWT introduction made</span></div>
+    <div class="detail-row"><span class="detail-label">Johansens</span><span class="detail-value">Join Our Collection application submitted</span></div>
+    <div class="detail-row"><span class="detail-label">Social</span><span class="detail-value">Instagram at 30+ posts with coherent visual identity</span></div>
+    <div class="detail-row"><span class="detail-label">Digital</span><span class="detail-value">olivosanto.com live · reservations@olivosanto.com active</span></div>
+    <div class="detail-row"><span class="detail-label">Goal</span><span class="detail-value">First direct inquiry received at reservations@olivosanto.com · client contacts Olivo Santo directly · no intermediary owns the relationship</span></div>
+  </div>
+
+</div>
+
+<script>
+function toggle(id, box) {
+  var panel = document.getElementById(id);
+  var allPanels = document.querySelectorAll('.detail-panel');
+  var allBoxes = document.querySelectorAll('.box');
+  var isVisible = panel.classList.contains('visible');
+  allPanels.forEach(function(p) { p.classList.remove('visible'); });
+  allBoxes.forEach(function(b) { b.classList.remove('active'); });
+  if (!isVisible) {
+    panel.classList.add('visible');
+    box.classList.add('active');
+    setTimeout(function() { panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); }, 50);
+  }
+}
+function close(id) {
+  document.getElementById(id).classList.remove('visible');
+  document.querySelectorAll('.box').forEach(function(b) { b.classList.remove('active'); });
+}
+</script>
